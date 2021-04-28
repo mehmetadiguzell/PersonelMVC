@@ -1,0 +1,45 @@
+﻿@model List<PersonelMVC.Models.EntityFramework.Personel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<h2>Personel Listesi</h2>
+<br />
+<a href="@Url.Action("Yeni","Personel")" class="btn btn-outline-dark">Personel Ekle</a>
+<br />
+<br />
+<table class="table table-dark table-hover" >
+    <thead class="bg-info">
+        <tr>
+            <td>Departman</td>
+            <td>Ad</td>
+            <td>Soyad</td>
+            <td>Maaş</td>
+            <td>Doğum Tarihi</td>
+            <td>Cinsiyet</td>
+            <td>Güncelle</td>
+            <td>Sil</td>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var personel in Model)
+        {
+            <tr>
+                <td>@personel.Departman.Ad</td>
+                <td>@personel.Ad</td>
+                <td>@personel.Soyad</td>
+                <td>@personel.Maas</td>
+                <td>@personel.DogumTarihi.Value.ToString("dd-MM-yyyy")</td>
+                <td>@(personel.Cinsiyet==true?"Erkek":"Kadın")</td>
+                
+                <td><a href="@Url.Action("Delete","Personel",new { Id=personel.Id})" class="btn btn-danger">Sil</a></td>
+                <td><a href="@Url.Action("Update","Personel",new { Id=personel.Id})" class="btn btn-success">Güncelle</a></td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -1,0 +1,43 @@
+﻿@model List<PersonelMVC.Models.EntityFramework.Departman>
+@{
+    ViewBag.Title = "Departman Listesi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<h2>Departman Listesi</h2>
+<br />
+<a href="@Url.Action("Yeni","Departman")" class="btn btn-outline-dark">Departman Ekle</a>
+<br />
+<br />
+<table class="table table-dark table-hover" id="tblDepartmanlar">
+    <thead class="bg-info">
+        <tr>
+            <th>Id</th>
+            <th>Ad</th>
+            <th>Sil</th>
+            <th>Güncelle</th>
+            <th>Personeller</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var departman in Model)
+        {
+            <tr>
+                <td>@departman.Id</td>
+                <td>@departman.Ad</td>
+                <td><a class="btn btn-danger btnDepartmanSil" data-id="@departman.Id">Sil</a></td>
+                <td><a href="@Url.Action("Update","Departman",new { Id=departman.Id})" class="btn btn-success">Güncelle</a></td>
+                @*<td>@Html.ActionLink("Personelleri Göster","PersonelleriListele","Personel", new { Id = departman.Id }, new { @class= "btn btn-primary" })</td>*@
+                <td>@Ajax.ActionLink("Personelleri Göster","PersonelleriListele","Personel", new { Id = departman.Id }, new AjaxOptions { HttpMethod="GET" ,UpdateTargetId="personelListesi"}, new { @class = "btn btn-primary" })</td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div id="personelListesi">
+
+</div>
